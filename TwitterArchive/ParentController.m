@@ -27,6 +27,32 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
++ (CGFloat)heightForCellWithContentString:(NSString *)content {
+    CGFloat horizontalTextSpace = ([UIScreen mainScreen].bounds.size.width) - 72.0f - 46.0f;
+    
+    CGSize contentSize = [content boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin // wordwrap?
+                                            attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                               context:nil].size;
+    
+    CGFloat singleLineHeight = [@"Test" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                                     context:nil].size.height;
+    
+    // Calculate the added height necessary for multiline text. Ensure value is not below 0.
+    CGFloat multilineHeightAddition = contentSize.height - singleLineHeight;
+    
+    return 48.0f + fmax(0.0f, multilineHeightAddition);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *contentString = _dataSource[[indexPath row]][@"text"];
+    
+    return [ParentController heightForCellWithContentString:contentString];
+    //return 70.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataSource.count;
 }
@@ -46,6 +72,8 @@
     NSDictionary *tweet = _dataSource[[indexPath row]];
     
     cell.textLabel.text = tweet[@"text"];
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
     return cell;
 }
 
