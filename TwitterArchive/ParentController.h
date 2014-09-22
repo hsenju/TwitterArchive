@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  ParentController.h
 //  TwitterArchive
 //
 //  Created by Hikari Senju on 9/21/14.
@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Accounts/Accounts.h>
-#import <Social/Social.h>
-#import <UIKit/UIKit.h>
-#import "ParentController.h"
 
-@interface FirstViewController : ParentController
+@interface ParentController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tweetTableView;
+@property (strong, nonatomic) NSArray *dataSource;
 
 @end

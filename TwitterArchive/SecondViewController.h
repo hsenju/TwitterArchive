@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+#import <UIKit/UIKit.h>
+#import "ParentController.h"
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : ParentController <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *archiveTableView;
 
 
 @end

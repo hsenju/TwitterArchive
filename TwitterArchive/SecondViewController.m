@@ -16,7 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getTimeLine];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+     [self getTimeLine];
+     [self.archiveTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,4 +30,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)getTimeLine {
+    
+    NSMutableArray* dataSourceMutable = [[NSMutableArray alloc] init];;
+    for (NSData *tweetData in [[NSUserDefaults standardUserDefaults] arrayForKey:@"tweetArray"]){
+    
+        NSDictionary* tweetDict = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:tweetData];
+        [dataSourceMutable addObject:tweetDict];
+        
+    }
+    self.dataSource = [NSArray arrayWithArray:dataSourceMutable];
+
+}
 @end
