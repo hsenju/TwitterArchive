@@ -18,6 +18,8 @@
 		2F85546B19CF6DD50055C8F4 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F85546A19CF6DD50055C8F4 /* Accounts.framework */; };
 		2F85546D19CF6DE70055C8F4 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F85546C19CF6DE70055C8F4 /* Social.framework */; };
 		2F85547919CFC1D70055C8F4 /* ParentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85547819CFC1D70055C8F4 /* ParentController.m */; };
+		2F85547C19CFD3810055C8F4 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85547B19CFD3810055C8F4 /* TableViewCell.m */; };
+		2F85548219CFD7F50055C8F4 /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85548119CFD7F50055C8F4 /* ImageTableViewCell.m */; };
 		76D204F3B3394CDCBEDCDA1A /* libPods-TwitterArchive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C4177BF98F4471A5A5167E /* libPods-TwitterArchive.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,10 @@
 		2F85546C19CF6DE70055C8F4 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		2F85547719CFC1D70055C8F4 /* ParentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentController.h; sourceTree = "<group>"; };
 		2F85547819CFC1D70055C8F4 /* ParentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentController.m; sourceTree = "<group>"; };
+		2F85547A19CFD3810055C8F4 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		2F85547B19CFD3810055C8F4 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		2F85548019CFD7F50055C8F4 /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTableViewCell.h; sourceTree = "<group>"; };
+		2F85548119CFD7F50055C8F4 /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTableViewCell.m; sourceTree = "<group>"; };
 		6FCB71234178452395797205 /* Pods-TwitterArchive.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterArchive.xcconfig"; path = "Pods/Pods-TwitterArchive.xcconfig"; sourceTree = "<group>"; };
 		A2C4177BF98F4471A5A5167E /* libPods-TwitterArchive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TwitterArchive.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,13 +117,9 @@
 			children = (
 				2F04C3E119CF6617008FDFDD /* AppDelegate.h */,
 				2F04C3E219CF6617008FDFDD /* AppDelegate.m */,
-				2F85547719CFC1D70055C8F4 /* ParentController.h */,
-				2F85547819CFC1D70055C8F4 /* ParentController.m */,
-				2F04C3E419CF6617008FDFDD /* FirstViewController.h */,
-				2F04C3E519CF6617008FDFDD /* FirstViewController.m */,
-				2F04C3E719CF6617008FDFDD /* SecondViewController.h */,
-				2F04C3E819CF6617008FDFDD /* SecondViewController.m */,
 				2F04C3EA19CF6617008FDFDD /* Main.storyboard */,
+				2F85547F19CFD3A10055C8F4 /* ViewControllers */,
+				2F85547D19CFD38B0055C8F4 /* Views */,
 				2F04C3ED19CF6617008FDFDD /* Images.xcassets */,
 				2F04C3EF19CF6617008FDFDD /* LaunchScreen.xib */,
 				2F04C3DD19CF6617008FDFDD /* Supporting Files */,
@@ -149,6 +151,30 @@
 				2F04C3FB19CF6618008FDFDD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2F85547D19CFD38B0055C8F4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2F85547A19CFD3810055C8F4 /* TableViewCell.h */,
+				2F85547B19CFD3810055C8F4 /* TableViewCell.m */,
+				2F85548019CFD7F50055C8F4 /* ImageTableViewCell.h */,
+				2F85548119CFD7F50055C8F4 /* ImageTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2F85547F19CFD3A10055C8F4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2F85547719CFC1D70055C8F4 /* ParentController.h */,
+				2F85547819CFC1D70055C8F4 /* ParentController.m */,
+				2F04C3E419CF6617008FDFDD /* FirstViewController.h */,
+				2F04C3E519CF6617008FDFDD /* FirstViewController.m */,
+				2F04C3E719CF6617008FDFDD /* SecondViewController.h */,
+				2F04C3E819CF6617008FDFDD /* SecondViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F04C3E919CF6617008FDFDD /* SecondViewController.m in Sources */,
+				2F85548219CFD7F50055C8F4 /* ImageTableViewCell.m in Sources */,
+				2F85547C19CFD3810055C8F4 /* TableViewCell.m in Sources */,
 				2F85547919CFC1D70055C8F4 /* ParentController.m in Sources */,
 				2F04C3E319CF6617008FDFDD /* AppDelegate.m in Sources */,
 				2F04C3E619CF6617008FDFDD /* FirstViewController.m in Sources */,

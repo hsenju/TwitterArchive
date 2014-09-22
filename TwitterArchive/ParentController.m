@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Hikari Senju. All rights reserved.
 //
 
+#import "TableViewCell.h"
 #import "ParentController.h"
 
 @interface ParentController ()
@@ -43,7 +44,7 @@
     // Calculate the added height necessary for multiline text. Ensure value is not below 0.
     CGFloat multilineHeightAddition = contentSize.height - singleLineHeight;
     
-    return 48.0f + fmax(0.0f, multilineHeightAddition);
+    return 54.0f + fmax(0.0f, multilineHeightAddition);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -59,21 +60,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"RegularTweetCell";
     
-    UITableViewCell *cell = [self.tweetTableView
+    TableViewCell *cell = [self.tweetTableView
                              dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
     }
     
     NSDictionary *tweet = _dataSource[[indexPath row]];
     
-    cell.textLabel.text = tweet[@"text"];
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
+    cell.title.text = tweet[@"text"];
+    cell.subtitle.text = tweet[@"user"][@"name"];
+
     return cell;
 }
 
@@ -85,15 +87,5 @@
 
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
