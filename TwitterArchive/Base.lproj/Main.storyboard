@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UBJ-EA-Dnw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="38" width="320" height="481"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RegularTweetCell" id="Jz6-ai-iiG" customClass="TableViewCell">
@@ -87,21 +87,37 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="UAm-sU-bdG"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sfo-uX-PZG">
+                                <rect key="frame" x="0.0" y="-6" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="6kb-e9-y5I"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UBJ-EA-Dnw" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="PGU-ck-PVj"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="UBJ-EA-Dnw" secondAttribute="bottom" id="X0F-E0-wkf"/>
-                            <constraint firstItem="UBJ-EA-Dnw" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" id="bUD-rh-hfW"/>
+                            <constraint firstItem="UBJ-EA-Dnw" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" constant="38" id="bUD-rh-hfW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UBJ-EA-Dnw" secondAttribute="trailing" constant="-16" id="cdf-wo-Kyw"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="tweetSearchBar" destination="Sfo-uX-PZG" id="NWR-Zs-YJS"/>
                         <outlet property="tweetTableView" destination="UBJ-EA-Dnw" id="BJx-RO-CfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="xbc-pz-lGN">
+                    <connections>
+                        <outlet property="delegate" destination="9pv-A4-QxB" id="SeW-cO-X3k"/>
+                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="1JR-KX-do2"/>
+                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="9Ku-l2-60F"/>
+                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="OPw-sk-CzZ"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="400" y="-303"/>
         </scene>

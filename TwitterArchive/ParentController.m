@@ -48,7 +48,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *contentString = _dataSource[[indexPath row]][@"text"];
+    
+    NSDictionary *tempDict = _dataSource[(long)[indexPath row]];
+    
+    NSString *contentString = tempDict[@"text"];
+    
     
     return [ParentController heightForCellWithContentString:contentString];
     //return 70.0;
@@ -78,7 +82,6 @@
 
     return cell;
 }
-
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

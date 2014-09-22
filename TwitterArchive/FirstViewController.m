@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getTimeLine];
+    [self getTimeLine: nil];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -24,6 +24,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark -
+#pragma mark UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -43,7 +46,19 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)getTimeLine {
+#pragma mark - UISearchBar Delegate Methods
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if (searchText.length == 0) [self getTimeLine:nil];
+    
+    [self getTimeLine:searchText];
+
+}
+
+
+- (void)getTimeLine: (NSString*)searchText {
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account
                                   accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
@@ -67,21 +82,35 @@
                  [parameters setObject:@"20" forKey:@"count"];
                  [parameters setObject:@"1" forKey:@"include_entities"];
                  
-                 SLRequest *postRequest = [SLRequest
+                 if (searchText){
+                     requestURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/search/tweets.json"];
+                     parameters =
+                     [[NSMutableDictionary alloc] init];
+                     [parameters setObject:searchText forKey:@"q"];
+                     [parameters setObject:@"15" forKey:@"count"];
+                 }
+                 
+                 SLRequest *getRequest = [SLRequest
                                            requestForServiceType:SLServiceTypeTwitter
                                            requestMethod:SLRequestMethodGET
                                            URL:requestURL parameters:parameters];
                  
-                 postRequest.account = twitterAccount;
+                 getRequest.account = twitterAccount;
                  
-                 [postRequest performRequestWithHandler:
+                 [getRequest performRequestWithHandler:
                   ^(NSData *responseData, NSHTTPURLResponse
                     *urlResponse, NSError *error)
                   {
-                      self.dataSource = [NSJSONSerialization
-                                         JSONObjectWithData:responseData
-                                         options:NSJSONReadingMutableLeaves
-                                         error:&error];
+                      if ([[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error] isKindOfClass:[NSArray class]]){
+                          self.dataSource = [NSJSONSerialization
+                                             JSONObjectWithData:responseData
+                                             options:NSJSONReadingMutableLeaves
+                                             error:&error];
+                      }else {
+                          self.dataSource = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&error][@"statuses"];
+                      }
+                      
+
                       
                       if (self.dataSource.count != 0) {
                           dispatch_async(dispatch_get_main_queue(), ^{

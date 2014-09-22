@@ -12,8 +12,9 @@
 #import <UIKit/UIKit.h>
 #import "ParentController.h"
 
-@interface FirstViewController : ParentController
+@interface FirstViewController : ParentController  <UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tweetTableView;
+@property (strong, nonatomic) IBOutlet UISearchBar *tweetSearchBar;
 
 @end
