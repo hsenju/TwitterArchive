@@ -42,7 +42,6 @@
                                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
                                                      context:nil].size.height;
     
-    // Calculate the added height necessary for multiline text. Ensure value is not below 0.
     CGFloat multilineHeightAddition = contentSize.height - singleLineHeight;
     
     return 54.0f + fmax(0.0f, multilineHeightAddition);
@@ -60,7 +59,6 @@
     
     
     return [ParentController heightForCellWithContentString:contentString];
-    //return 70.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -72,7 +70,6 @@
     NSDictionary *tweet = _dataSource[[indexPath row]];
     static NSString *CellIdentifier;
     if (tweet[@"entities"][@"media"]){
-        NSLog (@"has media");
         CellIdentifier = @"ImageTweetCell";
         
         ImageTableViewCell *cell = [self.tweetTableView
@@ -89,8 +86,7 @@
         
         
         UIImage *tweetImage  = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tweet[@"entities"][@"media"][0][@"media_url"]]]];
-//        CGRect cropRect = CGRectMake(0, 0, 50,50);
-        cell.pictureView.image= tweetImage;//[self croppIngimageByImageName:tweetImage toRect:cropRect];
+        cell.pictureView.image= tweetImage;
         
         return cell;
     
@@ -120,19 +116,6 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
 
-}
-
-#pragma mark -- helper
-
-- (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect
-{
-    //CGRect CropRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height+15);
-    
-    CGImageRef imageRef = CGImageCreateWithImageInRect([imageToCrop CGImage], rect);
-    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    
-    return cropped;
 }
 
 @end

@@ -30,6 +30,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray *mtweetArray = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"tweetArray"] mutableCopy];
+    [mtweetArray removeObjectAtIndex:[tableView numberOfRowsInSection:0]-1 -[indexPath row]];
+    NSArray *tweetArray = [NSArray arrayWithArray:mtweetArray];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:tweetArray forKey:@"tweetArray"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [tableView beginUpdates];
+
+    [self getTimeLine];
+    
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView endUpdates];
+    [tableView reloadData];
+
+    
+}
+
 - (void)getTimeLine {
     
     NSMutableArray* dataSourceMutable = [[NSMutableArray alloc] init];;
