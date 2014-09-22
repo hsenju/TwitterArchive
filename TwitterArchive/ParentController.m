@@ -54,18 +54,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
-    NSDictionary *tweet = _dataSource[[indexPath row]];
-    NSData *myData = [NSKeyedArchiver archivedDataWithRootObject:tweet];
-    
-    NSMutableArray *mtweetArray = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"tweetArray"] mutableCopy];
-    if (!mtweetArray){
-        mtweetArray = [@[] mutableCopy];
-    }
-    [mtweetArray addObject:myData];
-    NSArray *tweetArray = [NSArray arrayWithArray:mtweetArray];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:tweetArray forKey:@"tweetArray"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 

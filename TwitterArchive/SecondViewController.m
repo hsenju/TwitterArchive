@@ -39,7 +39,8 @@
         [dataSourceMutable addObject:tweetDict];
         
     }
-    self.dataSource = [NSArray arrayWithArray:dataSourceMutable];
+    
+    self.dataSource = [[[NSArray arrayWithArray:dataSourceMutable] reverseObjectEnumerator] allObjects];
 
 }
 @end

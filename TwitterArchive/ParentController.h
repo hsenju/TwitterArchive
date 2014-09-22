@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class FirstViewController;
+
 @interface ParentController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tweetTableView;
