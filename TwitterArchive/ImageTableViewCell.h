@@ -10,4 +10,8 @@
 
 @interface ImageTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UIImageView *pictureView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
+
 @end

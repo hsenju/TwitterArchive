@@ -7,6 +7,7 @@
 //
 
 #import "TableViewCell.h"
+#import "ImageTableViewCell.h"
 #import "ParentController.h"
 
 @interface ParentController ()
@@ -49,9 +50,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary *tempDict = _dataSource[(long)[indexPath row]];
+    NSDictionary *tweet = _dataSource[(long)[indexPath row]];
     
-    NSString *contentString = tempDict[@"text"];
+    NSString *contentString = tweet[@"text"];
+    
+    if (tweet[@"entities"][@"media"]){
+        return [ParentController heightForCellWithContentString:contentString] + 250 ;
+    }
     
     
     return [ParentController heightForCellWithContentString:contentString];
@@ -64,23 +69,50 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"RegularTweetCell";
+    NSDictionary *tweet = _dataSource[[indexPath row]];
+    static NSString *CellIdentifier;
+    if (tweet[@"entities"][@"media"]){
+        NSLog (@"has media");
+        CellIdentifier = @"ImageTweetCell";
+        
+        ImageTableViewCell *cell = [self.tweetTableView
+                               dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[ImageTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            cell.textLabel.numberOfLines = 0;
+        }
+        
+        cell.titleLabel.text = tweet[@"text"];
+        cell.subtitleLabel.text = [tweet[@"user"][@"name"] stringByAppendingString:[NSString stringWithFormat:@": @%@",tweet[@"user"][@"screen_name"]]];
+        
+        
+        UIImage *tweetImage  = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tweet[@"entities"][@"media"][0][@"media_url"]]]];
+//        CGRect cropRect = CGRectMake(0, 0, 50,50);
+        cell.pictureView.image= tweetImage;//[self croppIngimageByImageName:tweetImage toRect:cropRect];
+        
+        return cell;
     
-    TableViewCell *cell = [self.tweetTableView
-                             dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.textLabel.numberOfLines = 0;
+    }
+    else {
+        CellIdentifier = @"RegularTweetCell";
+
+        TableViewCell *cell = [self.tweetTableView
+                                 dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            cell.textLabel.numberOfLines = 0;
+        }
+        
+        cell.title.text = tweet[@"text"];
+        cell.subtitle.text = [tweet[@"user"][@"name"] stringByAppendingString:[NSString stringWithFormat:@": @%@",tweet[@"user"][@"screen_name"]]];
+        
+        return cell;
     }
     
-    NSDictionary *tweet = _dataSource[[indexPath row]];
-    
-    cell.title.text = tweet[@"text"];
-    cell.subtitle.text = tweet[@"user"][@"name"];
-
-    return cell;
 }
 
 
@@ -90,5 +122,17 @@
 
 }
 
+#pragma mark -- helper
+
+- (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect
+{
+    //CGRect CropRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height+15);
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect([imageToCrop CGImage], rect);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    return cropped;
+}
 
 @end
