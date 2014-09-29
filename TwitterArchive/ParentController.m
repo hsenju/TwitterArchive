@@ -30,16 +30,16 @@
 #pragma mark UITableViewDataSource
 
 + (CGFloat)heightForCellWithContentString:(NSString *)content {
-    CGFloat horizontalTextSpace = ([UIScreen mainScreen].bounds.size.width) - 72.0f - 46.0f;
+    CGFloat horizontalTextSpace = ([UIScreen mainScreen].bounds.size.width) - 46.0f;
     
     CGSize contentSize = [content boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
                                                options:NSStringDrawingUsesLineFragmentOrigin // wordwrap?
-                                            attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                            attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}
                                                context:nil].size;
     
     CGFloat singleLineHeight = [@"Test" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}
                                                      context:nil].size.height;
     
     CGFloat multilineHeightAddition = contentSize.height - singleLineHeight;
